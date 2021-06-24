@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load ShopTags %}
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+           <a href="{% url 'discount_hozlist' %}"><img class="first-slide" src="{% static 'images/discont.jpg'%}" alt="First slide"></a>
+       
+        </div>
+        <div class="item">
+          <a href="{% url 'discount_list' %}"> <img class="second-slide " src="{% static 'images/discont2.jpg'%}" alt="Second slide"></a>
+         
+        </div>
+      </div>
+    
+    </div><!-- /.carousel -->
+
+<!--content-->
+<div class="kic-top ">
+	<div class="container ">
+	<div class="kic ">
+			<h3>Популярные категории</h3>
+
+		</div>
+		{% if type == 'Product' %}
+			{% random_cathegory %}
+		{% else %}
+			{% random_cathegory 'hozproduct' %}
+		{% endif %}
+<!--		{% for i in random_cathegory %}
+		<div class="col-md-4 kic-top1">
+			<a href="{{ i.get_absolute_url }}">
+				<img src="{{i.photo.url}}" class="kitchen_cathegory" alt="">
+			</a>
+			<h6>{{i.name}}</h6>
+		</div>
+		{% endfor %}-->
+
+	</div>
+</div>
+
+<!--content-->
+		<div class="product">
+		<div class="container">
+			<div class="spec ">
+				<h3>{{title}}</h3>
+				<div class="ser-t">
+					<b></b>
+					<span><i></i></span>
+					<b class="line"></b>
+				</div>
+			</div>
+				<div class=" con-w3l agileinf">
+					{% for i in product_list %}
+					<div class="col-md-3 pro-1">
+								<div class="col-m">
+									<a href="#" data-toggle="modal" data-target="#{{i.slug}}" class="offer-img">
+										<img src="{{i.photo.url}}" class="popaimg"  alt="">
+									</a>
+									<div class="mid-1">
+										<div class="women">
+											<h6><a href="single.html">{{i.name|truncatewords:6}}</a></h6>
+										</div>
+										<div class="mid-2">
+											{% if i.percent == 0 %}
+											<p><em class="item_price">{{i.final_price}} Р</em></p>
+											{% else %}
+											<p ><label>{{i.price}} Р</label><em class="item_price">{{i.final_price}} Р</em></p>
+											{% endif %}
+											  <div class="block">
+												  <p>{{i.country}}</p>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+											<div class="add">
+										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id={{i.slug}} data-name={{i.name}} data-summary="summary 30" data-price="{{i.final_price}}" data-vnal = "{{i.v_nal}}" data-quantity="1" data-image={{i.photo.url}} data-type ={{i.Type}}>Add to Cart</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+							<div class="clearfix"></div>
+						 </div>
+		</div>
+	</div>
+
+			{% for i in product_list %}
+			<div class="modal fade" id="{{i.slug}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-info">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body modal-spa">
+								<div class="col-md-5 span-2">
+											<div class="item">
+												<img src="{{ i.photo.url }}" class="img-responsive1" alt="">
+											</div>
+								</div>
+								<div class="col-md-7 span-1 ">
+									<h3>{{i.name}}</h3>
+									{% if type == 'Product' %}
+									<p class="in-para">Каллории:{{i.calories}} ккал|Белки:{{i.proteins}} г|Жиры:{{i.fats}} г|Углеводы:{{i.uglevody}} г</p>
+									{% else %}
+									<p class="in-para">Вес/Объем: {{i.weight}}|Страна:{{i.country}}</p>
+									{% endif %}
+									{% if i.percent == 0 %}
+									<div class="price_single">
+									  <span class="reducedfrom ">{{i.final_price}}р.</span>
+									{% else %}
+									<div class="price_single">
+									  <span class="reducedfrom "><del>{{i.price}}р.</del> {{i.final_price}}р.</span>
+									{% endif %}
+									 <div class="clearfix"></div>
+									</div>
+									<h4 class="quick">Краткое описание:</h4>
+									<p class="quick_desc">{{i.consist|truncatewords:30}}</p>
+									 <div class="add-to">
+
+										   <button class="btn btn-danger my-cart-btn my-cart-btn1 " data-id={{i.slug}} data-name={{i.name}} data-summary="summary 25" data-price="{{i.final_price}}" data-vnal = "{{i.v_nal}}"  data-quantity="1" data-image={{i.photo.url}} data-type ={{i.Type}}>Добавить в корзину</button>
+										 <a href="{{i.get_absolute_url}}"><button class="btn btn-danger my-cart-btn my-cart-btn1">Подробнее</button></a>
+										</div>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+<<div class="mypagin">
+	<nav aria-label="Page navigation example">
+	<ul class="pagination">
+		{% if page_obj.has_previous %}
+    		<li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Предыдущая</a></li>
+		{% endif %}
+		{% for p in page_obj.paginator.page_range %}
+		{% if page_obj.number <= p|add:2 and page_obj.number >= p|add:-2 %}
+			{% if page_obj.number == p %}
+				<li class="page-item active"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+			{% else %}
+				<li class="page-item"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+			{% endif %}
+		{% endif %}
+		{% endfor %}
+		{% if page_obj.has_next %}
+			<li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Следующая</a></li>
+		{% endif %}
+	</ul>
+</nav>
+</div>
+{% endblock %}

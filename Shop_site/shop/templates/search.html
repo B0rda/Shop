@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+		<div class="product">
+		<div class="container">
+			<div class="spec ">
+				<h3>{{title}}</h3>
+				<div class="ser-t">
+					<b></b>
+					<span><i></i></span>
+					<b class="line"></b>
+				</div>
+			</div>
+
+				<h2> Найдено продуктов {{product_list.count}}</h2>
+				<div class=" con-w3l agileinf">
+					{% for i in product_list %}
+					<div class="col-md-3 pro-1">
+								<div class="col-m">
+									<a href="#" data-toggle="modal" data-target="#{{i.slug}}" class="offer-img">
+										<img src="{{i.photo.url}}" class="popaimg"  alt="">
+									</a>
+									<div class="mid-1">
+										<div class="women">
+											<h6><a href="single.html">{{i.name|truncatewords:6}}</a></h6>
+										</div>
+										<div class="mid-2">
+											{% if i.percent == 0 %}
+											<p><em class="item_price">{{i.final_price}} Р</em></p>
+											{% else %}
+											<p ><label>{{i.price}} Р</label><em class="item_price">{{i.final_price}} Р</em></p>
+											{% endif %}
+											  <div class="block">
+												  <p>{{i.country}}</p>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+											<div class="add">
+										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id={{i.slug}} data-name={{i.name}} data-summary="summary 30" data-price="{{i.final_price}}" data-vnal = "{{i.v_nal}}" data-quantity="1" data-image={{i.photo.url}} data-type ={{i.Type}}>Add to Cart</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+							<div class="clearfix"></div>
+						 </div>
+				<h2> Найдено хозяйственных товаров {{hozproduct_list.count}}</h2>
+				<div class=" con-w3l agileinf">
+					{% for i in hozproduct_list %}
+					<div class="col-md-3 pro-1">
+								<div class="col-m">
+									<a href="#" data-toggle="modal" data-target="#{{i.slug}}" class="offer-img">
+										<img src="{{i.photo.url}}" class="popaimg"  alt="">
+									</a>
+									<div class="mid-1">
+										<div class="women">
+											<h6><a href="single.html">{{i.name|truncatewords:6}}</a></h6>
+										</div>
+										<div class="mid-2">
+											{% if i.percent == 0 %}
+											<p><em class="item_price">{{i.final_price}} Р</em></p>
+											{% else %}
+											<p ><label>{{i.price}} Р</label><em class="item_price">{{i.final_price}} Р</em></p>
+											{% endif %}
+											  <div class="block">
+												  <p>{{i.country}}</p>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+											<div class="add">
+										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id={{i.slug}} data-name={{i.name}} data-summary="summary 30" data-price="{{i.final_price}}" data-vnal = "{{i.v_nal}}" data-quantity="1" data-image={{i.photo.url}} data-type ={{i.Type}}>Add to Cart</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+							<div class="clearfix"></div>
+						 </div>
+		</div>
+	</div>
+
+			{% for i in product_list %}
+			<div class="modal fade" id="{{i.slug}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-info">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body modal-spa">
+								<div class="col-md-5 span-2">
+											<div class="item">
+												<img src="{{ i.photo.url }}" class="img-responsive1" alt="">
+											</div>
+								</div>
+								<div class="col-md-7 span-1 ">
+									<h3>{{i.name}}</h3>
+									<p class="in-para">Каллории:{{i.calories}} ккал|Белки:{{i.proteins}} г|Жиры:{{i.fats}} г|Углеводы:{{i.uglevody}} г</p>
+									{% if i.percent == 0 %}
+									<div class="price_single">
+									  <span class="reducedfrom ">{{i.final_price}}р.</span>
+									{% else %}
+									<div class="price_single">
+									  <span class="reducedfrom "><del>{{i.price}}р.</del> {{i.final_price}}р.</span>
+									{% endif %}
+									 <div class="clearfix"></div>
+									</div>
+									<h4 class="quick">Краткое описание:</h4>
+									<p class="quick_desc">{{i.consist|truncatewords:30}}</p>
+									 <div class="add-to">
+
+										   <button class="btn btn-danger my-cart-btn my-cart-btn1 " data-id={{i.slug}} data-name={{i.name}} data-summary="summary 25" data-price="{{i.final_price}}" data-vnal = "{{i.v_nal}}"  data-quantity="1" data-image={{i.photo.url}} data-type ={{i.Type}}>Добавить в корзину</button>
+										 <a href="{{i.get_absolute_url}}"><button class="btn btn-danger my-cart-btn my-cart-btn1">Подробнее</button></a>
+										</div>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+				{% for i in hozproduct_list %}
+			<div class="modal fade" id="{{i.slug}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-info">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body modal-spa">
+								<div class="col-md-5 span-2">
+											<div class="item">
+												<img src="{{ i.photo.url }}" class="img-responsive1" alt="">
+											</div>
+								</div>
+								<div class="col-md-7 span-1 ">
+									<h3>{{i.name}}</h3>
+									<p class="in-para">Вес/Объем: {{i.weight}}|Страна:{{i.country}}</p>
+									{% if i.percent == 0 %}
+									<div class="price_single">
+									  <span class="reducedfrom ">{{i.final_price}}р.</span>
+									{% else %}
+									<div class="price_single">
+									  <span class="reducedfrom "><del>{{i.price}}р.</del> {{i.final_price}}р.</span>
+									{% endif %}
+									 <div class="clearfix"></div>
+									</div>
+									<h4 class="quick">Краткое описание:</h4>
+									<p class="quick_desc">{{i.consist|truncatewords:30}}</p>
+									 <div class="add-to">
+
+										   <button class="btn btn-danger my-cart-btn my-cart-btn1 " data-id={{i.slug}} data-name={{i.name}} data-summary="summary 25" data-price="{{i.final_price}}" data-vnal = "{{i.v_nal}}"  data-quantity="1" data-image={{i.photo.url}} data-type ={{i.Type}}>Добавить в корзину</button>
+										 <a href="{{i.get_absolute_url}}"><button class="btn btn-danger my-cart-btn my-cart-btn1">Подробнее</button></a>
+										</div>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
+{% endblock %}

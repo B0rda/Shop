@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load ShopTags %}
+<div data-vide-bg="{% static 'video/video'%}">
+    <div class="container">
+		<div class="banner-info">
+			<h3> Добро Пожаловать </h3>
+			<div class="search-form">
+				<form action="/search" method="get">
+					{% csrf_token %}
+					<input type="text" placeholder="Поиск..." name="Search">
+					<input type="submit" value=" " >
+				</form>
+			</div>
+		</div>
+    </div>
+</div>
+
+    <script>window.jQuery || document.write('<script src="{% static 'js/vendor/jquery-1.11.1.min.js'%}"><\/script>')</script>
+    <script src="{% static 'js/jquery.vide.min.js'%}"></script>
+<!--content-->
+<div class="content-top ">
+	<div class="container ">
+		<div class="spec ">
+			<h3>Товары недели:</h3>
+			<div class="ser-t">
+				<b></b>
+				<span><i></i></span>
+				<b class="line"></b>
+			</div>
+		</div>
+			<div class="tab-head ">
+				<nav class="nav-sidebar">
+					<ul class="nav tabs ">
+					  <li class="active"><a href="#tab1" data-toggle="tab">Продукты</a></li>
+					  <li class=""><a href="#tab2" data-toggle="tab">Хозяйственные товары</a></li>
+					</ul>
+				</nav>
+				<div class=" tab-content tab-content-t ">
+					<div class="tab-pane active text-style" id="tab1">
+						<div class=" con-w3l">
+							{% for i in bestproduct %}
+							<div class="col-md-3 pro-1">
+								<div class="col-m">
+									<a href="#" data-toggle="modal" data-target="#{{i.slug}}" class="offer-img">
+										<img src="{{i.photo.url}}" class="popaimg" alt="">
+										<div class="offer"><p><span>-{{i.percent}}%</span></p></div>
+									</a>
+									<div class="mid-1">
+										<div class="women">
+											<h6><a href="single.html">{{i.name}}</a> {{i.weight_size}}</h6>
+										</div>
+										<div class="mid-2">
+											<p ><label>{{i.price}} Р</label><em class="item_price">{{i.final_price}} Р</em></p>
+											  <div class="block">
+												<p>{{i.country}}</p>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+										<div class="add">
+										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id={{i.slug}} data-name={{i.name}} data-summary="summary 30" data-price="{{i.final_price}}" data-quantity="1" data-image={{i.photo.url}} data-vnal = "{{i.v_nal}}" data-type ={{i.Type}}>Добавить в корзину</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+							<div class="clearfix"></div>
+						 </div>
+					</div>
+					<div class="tab-pane  text-style" id="tab2">
+						<div class=" con-w3l">
+							{% for i in besthoz %}
+							<div class="col-md-3 pro-1">
+								<div class="col-m">
+									<a href="#" data-toggle="modal" data-target="#{{i.slug}}" class="offer-img">
+										<img src="{{i.photo.url}}"class="popaimg" alt="">
+										<div class="offer"><p><span>-{{i.percent}}%</span></p></div>
+									</a>
+									<div class="mid-1">
+										<div class="women">
+											<h6><a href="single.html">{{i.name}}</a> {{i.weight_size}}</h6>
+										</div>
+										<div class="mid-2">
+											<p ><label>{{i.price}} Р</label><em class="item_price">{{i.final_price}} Р</em></p>
+											  <div class="block">
+												<p>{{i.country}}</p>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+											<div class="add">
+										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id={{i.slug}} data-name={{i.name}} data-summary="summary 30" data-price="{{i.final_price}}" data-quantity="1" data-image={{i.photo.url}} data-vnal = "{{i.v_nal}}" data-type ={{i.Type}}>Добавить в корзину</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+							<div class="clearfix"></div>
+						 </div>		  
+					</div>
+				</div>
+			</div>
+		
+	</div>
+	</div>
+	</div>
+
+<!--content-->
+<div class="content-mid">
+	<div class="container">
+
+		{% random_cathegory 'index' %}
+		<div class="clearfix"></div>
+	</div>
+</div>
+<!--content-->
+  <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+         <a href="{% url 'discount_list' %}"> <img class="first-slide" src="{% static 'images/discont2.jpg'%}" alt="First slide"></a>
+        </div>
+        <div class="item">
+         <a href="{% url 'discount_hozlist' %}"> <img class="second-slide " src="{% static 'images/discont.jpg'%}" alt="Second slide"></a>
+
+        </div>
+
+      </div>
+    
+    </div><!-- /.carousel -->
+
+<!--content-->
+	<div class="product">
+		<div class="container">
+			<div class="spec ">
+				<h3>Специальные предложения</h3>
+				<div class="ser-t">
+					<b></b>
+					<span><i></i></span>
+					<b class="line"></b>
+				</div>
+			</div>
+				<div class=" con-w3l">
+							{% special_products1 %}
+							{% special_products1 'hozproducts' %}
+							<div class="clearfix"></div>
+						 </div>
+		</div>
+	</div>
+  
+  <!-- product -->
+			{% for i in bestproduct %}
+			<div class="modal fade" id="{{i.slug}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-info">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body modal-spa">
+								<div class="col-md-5 span-2">
+											<div class="item">
+												<img src="{{ i.photo.url }}" class="img-responsive1" alt="">
+											</div>
+								</div>
+								<div class="col-md-7 span-1 ">
+									<h3>{{i.name}}</h3>
+									<p class="in-para">Каллории:{{i.calories}} ккал | Белки:{{i.proteins}} г | Жиры:{{i.fats}} г | Углеводы:{{i.uglevody}} г</p>
+									{% if i.percent == 0 %}
+									<div class="price_single">
+									  <span class="reducedfrom ">{{i.final_price}}р.</span>
+									{% else %}
+									<div class="price_single">
+									  <span class="reducedfrom "><del>{{i.price}}р.</del> {{i.final_price}}р.</span>
+									{% endif %}
+									 <div class="clearfix"></div>
+									</div>
+									<h4 class="quick">Краткое описание:</h4>
+									<p class="quick_desc">{{i.consist|truncatewords:30}}</p>
+									 <div class="add-to">
+
+										   <button class="btn btn-danger my-cart-btn my-cart-btn1 " data-id={{i.slug}} data-name={{i.name}} data-summary="summary 25" data-price="{{i.final_price}}"  data-quantity="1" data-image={{i.photo.url}} data-vnal = "{{i.v_nal}}" data-type ={{i.Type}}>Добавить в корзину</button>
+										 <a href="{{i.get_absolute_url}}"><button class="btn btn-danger my-cart-btn my-cart-btn1">Подробнее</button></a>
+										</div>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+				{% for i in besthoz %}
+			<div class="modal fade" id="{{i.slug}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-info">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body modal-spa">
+								<div class="col-md-5 span-2">
+											<div class="item">
+												<img src="{{ i.photo.url }}" class="img-responsive1" alt="">
+											</div>
+								</div>
+								<div class="col-md-7 span-1 ">
+									<h3>{{i.name}}</h3>
+									<p class="in-para">Вес/Объем: {{i.weight}} | Страна:{{i.country}}</p>
+									{% if i.percent == 0 %}
+									<div class="price_single">
+									  <span class="reducedfrom ">{{i.final_price}}р.</span>
+									{% else %}
+									<div class="price_single">
+									  <span class="reducedfrom "><del>{{i.price}}р.</del> {{i.final_price}}р.</span>
+									{% endif %}
+									 <div class="clearfix"></div>
+									</div>
+									<h4 class="quick">Краткое описание:</h4>
+									<p class="quick_desc">{{i.consist|truncatewords:30}}</p>
+									 <div class="add-to">
+
+										   <button class="btn btn-danger my-cart-btn my-cart-btn1 " data-id={{i.slug}} data-name={{i.name}} data-summary="summary 25" data-price="{{i.final_price}}"  data-quantity="1" data-image={{i.photo.url}} data-vnal = "{{i.v_nal}}" data-type ={{i.Type}}>Добавить в корзину</button>
+										 <a href="{{i.get_absolute_url}}"><button class="btn btn-danger my-cart-btn my-cart-btn1">Подробнее</button></a>
+										</div>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+<!-- faqs -->
+	<div class="faq-w3 ">
+		<div class="container">
+			<div class="spec ">
+			<h3>Заказ под номером {{new_zakaz.id}} успешно оформлен</h3><hr>
+				<h3>Товары ждут вас до {{new_zakaz.trans_date}} </h3><hr>
+				<a href = "{% url 'index'%}" class="clear_all"><h3 style="color:#029241;">Продолжить покупки</h3></a>
+				<div class="ser-t">
+					<b></b>
+					<span><i></i></span>
+					<b class="line"></b>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<!-- // Terms of use -->
+{% endblock %}
+{% block Cartgen %}
+
+{% endblock %}

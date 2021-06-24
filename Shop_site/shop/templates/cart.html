@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+   <!--banner-->
+</div>
+	<!-- contact -->
+		<div class="check-out">	 
+		<div class="container">	 
+	 <div class="spec ">
+				<h3>Корзина</h3>
+					<div class="ser-t">
+						<b></b>
+						<span><i></i></span>
+						<b class="line"></b>
+					</div>
+			</div>
+			{% for i in messeges %}
+			<div class="alert alert-success" role="alert">
+			{{i}}<br>
+			</div>
+			{% endfor %}
+
+			<form action="" method="post">
+				{% csrf_token %}
+
+			<div class="Cartgen"></div>
+
+				<h2 style="margin:20px 0px;">Оформление заказа</h2>
+				<div class = "cart_para">
+				<h4 >Когда вам удобно забрать заказ:</h4>
+				<select class="date-zakaz" name = 'date'>
+					<option selected value="1">Сегодня {{today}}</option>
+					<option value="2">Завтра  {{tommortow}}</option>
+					<option value="3">Послезавтра {{posle_tommorow}}</option>
+				</select>
+				</div>
+				<div class="map">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7496.376433559126!2d91.42025120683834!3d53.714510860567074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d2c3d439b7a2499%3A0x2881e3f6dfe09a4d!2z0JTQvtC8INCa0L7Qu9C-0YLRg9GI0LrQuNC90LA!5e0!3m2!1sru!2sru!4v1623584856334!5m2!1sru!2sru" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+				</div>
+				<h4>Получить товар вы можете по адресу:</h4>
+				<h4>Улица Пушкина,Дом Колотушкина.</h4><br>
+				<h4>Оплата производится в магазине картой или наличными</h4><br>
+				<h4>Ждем вас С 8:00 до 23:00 Без выходных</h4><br>
+				{% if user.is_authenticated %}
+				<button type="submit" class = "btn btn-danger my-cart-btn my-cart-b empty_button"> Оформить заказ </button>
+				{% else %}
+				<button type="submit" disabled='disabled' class = "btn btn-danger my-cart-btn my-cart-b empty_button" style="background-color:white;"> Для оформления авторизуйтесь </button>
+				{% endif %}
+            </form>
+
+		</div>
+
+		</div>
+
+<!--quantity-->
+
+
+
+
+<script src="{% static 'js/Cart.js'%}"></script>
+
+{% endblock %}

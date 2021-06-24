@@ -1,0 +1,75 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
+{% for i in orders%}
+{{i.zakaz}}
+{% endfor %}
+	<!-- contact -->
+		<div class="check-out">	 
+		<div class="container">	 
+	 <div class="spec ">
+				<h3>Мои заказы</h3>
+					<div class="ser-t">
+						<b></b>
+						<span><i></i></span>
+						<b class="line"></b>
+					</div>
+			</div>
+			{% for i in orders %}
+			<p><h2>Заказ номер {{i.id}}</h2></p>
+			 <table class="table ">
+		  <tr>
+			  <th class="t-head head-it ">Товар</th>
+			  <th class="t-head">Название</th>
+			  <th class="t-head">Колличество</th>
+
+		  </tr>
+				 {% for z in orders_product %}
+				 {% if z.zakaz.id == i.id %}
+				 <tr class="cross">
+					 <td class="ring-in t-data">
+						 {% if z.cathegory == False %}
+						 <a href="{{z.product.get_absolute_url}}" class="at-in">
+							 <img src="{{z.product.photo.url}}" class="my_zakaz_img" alt="">
+						 </a>
+						 <div class="clearfix"> </div>
+					 </td>
+					 <td class="t-data"><h4>{{z.product.name}}</h4></td>
+					 <td class="t-data"><h4>{{z.count}}</h4></td>
+					 	{% else %}
+					 <a href="{{z.hozproduct.get_absolute_url}}" class="at-in">
+						 <img src="{{z.hozproduct.photo.url}}" class="my_zakaz_img" alt="">
+					 </a>
+					 <div class="clearfix"> </div>
+					 </td>
+					 <td class="t-data"><h4>{{z.hozproduct.name}}</h4></td>
+					 <td class="t-data"><h4>{{z.count}}</h4></td>
+					 	{% endif %}
+					 {% endif %}
+					 {% endfor %}
+
+
+		  </tr>
+		  <tr class="cross1">
+		  <td class="t-data ring-in">
+				<h3>Итоговая цена</h3>
+			<div class="clearfix"> </div>
+</td>
+			<td class="t-data"><h4>{{i.final_price}}Р</h4></td>
+
+
+		  </tr>
+		  <tr class="cross2">
+		  <td class="t-data ring-in">
+				<h3>Заказ забронирован До:</h3>
+			<div class="clearfix"> </div>
+			</td>
+			  <td class="t-data"><h4>{{i.trans_date}}</h4></td>
+
+		  </tr>
+	</table>
+			<br>
+	{% endfor %}
+		 </div>
+		 </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+	{% for i in special_hozproducts %}
+							<div class="col-md-3 pro-1">
+								<div class="col-m">
+									<a href="#" data-toggle="modal" data-target="#{{i.slug}}" class="offer-img">
+										<img src="{{i.photo.url}}"class="popaimg" alt="">
+										<div class="offer"><p><span>-{{i.percent}}%</span></p></div>
+									</a>
+									<div class="mid-1">
+										<div class="women">
+											<h6><a href="single.html">{{i.name}}</a> {{i.weight_size}}</h6>
+										</div>
+										<div class="mid-2">
+											<p ><label>{{i.price}} Р</label><em class="item_price">{{i.final_price}} Р</em></p>
+											  <div class="block">
+												<p>{{i.country}}</p>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+											<div class="add">
+										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id={{i.slug}} data-name={{i.name}} data-summary="summary 30" data-price="{{i.final_price}}" data-quantity="1" data-image={{i.photo.url}} data-vnal = "{{i.v_nal}}" data-type ={{i.Type}}>Добавить в корзину</button>
+										</div>
+									</div>
+								</div>
+								</div>
+
+								{% endfor %}
