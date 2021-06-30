@@ -65,6 +65,9 @@
 								<div class="col-m">
 									<a href="#" data-toggle="modal" data-target="#{{i.slug}}" class="offer-img">
 										<img src="{{i.photo.url}}" class="popaimg"  alt="">
+										{% if i.percent != 0 %}
+											<div class="offer"><p><span>-{{i.percent}}%</span></p></div>
+										{% endif %}
 									</a>
 									<div class="mid-1">
 										<div class="women">
@@ -82,7 +85,7 @@
 											<div class="clearfix"></div>
 										</div>
 											<div class="add">
-										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id={{i.slug}} data-name={{i.name}} data-summary="summary 30" data-price="{{i.final_price}}" data-vnal = "{{i.v_nal}}" data-quantity="1" data-image={{i.photo.url}} data-type ={{i.Type}}>Add to Cart</button>
+										   <button class="btn btn-danger my-cart-btn my-cart-b" data-id={{i.slug}} data-name={{i.name}} data-summary="summary 30" data-price="{{i.final_price}}" data-vnal = "{{i.v_nal}}" data-quantity="1" data-image={{i.photo.url}} data-type ={{i.Type}}>Добавить в корзину</button>
 										</div>
 									</div>
 								</div>
