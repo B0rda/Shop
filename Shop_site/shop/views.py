@@ -7,6 +7,9 @@ from django.db.models import Count
 from .forms import *
 from django.contrib.auth import login, logout
 from datetime import datetime, date, time, timedelta
+from .serializers import *
+from rest_framework import generics
+
 
 def register(request):
     if request.method == 'POST':
@@ -51,7 +54,7 @@ def index(request):
 class Discount_list(ListView):
     template_name = 'kitchen.html'
     context_object_name = 'product_list'
-    paginate_by = 2
+    paginate_by = 8
     def get_queryset(self):
         print(self.request.path_info)
         if self.request.path_info == '/product_discont/':
@@ -71,7 +74,7 @@ class Discount_list(ListView):
 class Product_list(ListView):
      template_name = 'kitchen.html'
      context_object_name = 'product_list'
-     paginate_by = 2
+     paginate_by = 8
      def get_queryset(self):
          return Product.objects.filter(cathegory__slug=self.kwargs['slug'])
      def get_context_data(self, *, object_list=None, **kwargs):
@@ -91,7 +94,7 @@ class Single(DetailView):
 class HozProduct_list(ListView):
     template_name = 'kitchen.html'
     context_object_name = 'product_list'
-    paginate_by = 2
+    paginate_by = 8
 
     def get_queryset(self):
         return HozProduct.objects.filter(cathegory__slug=self.kwargs['slug'])
@@ -172,3 +175,19 @@ class Search(ListView):
         context['hozproduct_list'] = HozProduct.objects.filter(name__icontains = self.request.GET.get('Search'))
         context['title'] = 'Поиск'
         return context
+
+class ApiAllProduct(generics.ListAPIView):
+    serializer_class = AllProductSerializer
+    queryset = Product.objects.all()
+
+class ApiAllHozproduct(generics.ListAPIView):
+    serializer_class = AllHozproductSerializer
+    queryset = HozProduct.objects.all()
+
+class ApiDetailProduct(generics.RetrieveUpdateAPIView):
+    serializer_class = DetailProductSerializer
+    queryset = Product.objects.all()
+
+class ApiDetailHozProduct(generics.RetrieveUpdateAPIView):
+    serializer_class = DetailHozproductSerializer
+    queryset = HozProduct.objects.all()

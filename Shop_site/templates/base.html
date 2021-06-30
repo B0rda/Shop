@@ -195,9 +195,9 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 									</div>
 								</ul>
 							</li>
-							<li class="dropdown">
+							<li class="dropdown ">
 								<a href="#" class="dropdown-toggle hyper" data-toggle="dropdown" ><span>Хозяйственные товары<b class="caret"></b></span></a>
-								<ul class="dropdown-menu multi multi2">
+								<ul class="dropdown-menu multi">
 									<div class="row">
 										<div class="col-sm-3">
 											<ul class="multi-column-dropdown">
@@ -205,18 +205,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 												{% for i in hozcathegory_list %}
 												<li><a href="{{ i.get_absolute_url }}"><i class="fa fa-angle-right" aria-hidden="true"></i>{{i.name}}</a></li>
 												{% endfor %}
-
 											</ul>
 
-										</div>
-
-										<div class="col-sm-3">
-
-											<ul class="multi-column-dropdown">
-												<li><a href="hold.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Pooja Needs</a></li>
-
-
-											</ul>
 										</div>
 										<div class="col-sm-3 w3l">
 											<a href="hold.html"><img src="{% static 'images/me2.png'%}" class="my_zakaz_img" alt=""></a>
@@ -225,6 +215,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 									</div>
 								</ul>
 							</li>
+
 
 							<li><a href="{% url 'cart' %}" class="hyper"> <span>Корзина</span></a></li>
 							{% if user.is_authenticated %}

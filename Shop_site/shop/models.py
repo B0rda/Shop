@@ -43,7 +43,7 @@ class ProductBase(models.Model):
     percent = models.DecimalField(max_digits=2, decimal_places=0,default=0,validators=[MinValueValidator(0)])
     final_price = models.DecimalField(max_digits=10, decimal_places=0,default=0)
     consist = models.TextField(max_length=700, blank=True)
-    v_nal = models.DecimalField(max_digits=4,decimal_places=0,default=0)
+    v_nal = models.DecimalField(max_digits=4,decimal_places=0,default=0,validators=[MinValueValidator(0)])
 
 
 class Product(ProductBase):
