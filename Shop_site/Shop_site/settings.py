@@ -133,3 +133,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REDIS_HOST='red'
+REDIS_PORT='6379'
+CELERY_BROKER_URL = 'redis://' + REDIS_HOST+':'+REDIS_PORT+ '/0'
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST+':'+REDIS_PORT+ '/0'
